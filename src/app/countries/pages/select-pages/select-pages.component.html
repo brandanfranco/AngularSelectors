@@ -1,0 +1,57 @@
+<h1 class="mt-5">Selectors</h1>
+<hr />
+
+<form [formGroup]="myForm" (ngSubmit)="save()">
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label"> Continent</label>
+      <select class="form-control" formControlName="region">
+        <option value="">--Options--</option>
+        <option *ngFor="let region of regiones" [value]="region | lowercase">
+          {{ region }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="countries.length > 0">
+    <div class="col">
+      <label class="form-label"> Countries</label>
+      <select class="form-control" formControlName="countries">
+        <option value="">--Options--</option>
+        <option *ngFor="let country of countries" [value]="country.alpha3Code">
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="borders.length !== 0">
+    <div class="col">
+      <label class="form-label"> Borders</label>
+      <select class="form-control" formControlName="border">
+        <option value="">--Options--</option>
+        <option *ngFor="let border of borders" [value]="border.alpha3Code">
+          {{ border.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="loading">
+    <div class="col">
+      <div class="alert alert-danger">loading...</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="submit" class="btn btn-primary float-end">Save</button>
+    </div>
+  </div>
+</form>
+
+<h3>Form</h3>
+
+<pre>Valid: {{ myForm.valid }}</pre>
+<pre>Value: {{ myForm.value | json }}</pre>
